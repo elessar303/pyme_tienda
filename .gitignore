@@ -1,1 +1,3 @@
 selectraerp/uploads/**/*.csv
+selectraerp/uploads/**/*.txt
+selectraerp/uploads/**/*.zip
