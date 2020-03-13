@@ -12,12 +12,12 @@ define('DB_HOST', '172.18.0.4', true);
 define('DB_SELECTRA_CONF', 'pyme_tienda_conf', true);#sisalud_selectraconf
 define('DB_SELECTRA_CONT', 'pyme_contabilidad', true);
 define('DB_SELECTRA_NOM', 'pyme_nomina', true);
-define('DB_SELECTRA_FAC', 'pyme_tienda_pyme', true);
+define('DB_SELECTRA_FAC', 'pyme_pyme', true);
 define('impresora_serial','Z1B8043126', true);
 define('DB_SELECTRA_BIE', '', true);
 define('DB_SELECTRA_DEFAULT', '', true);
 define('SELECTRA_CONF_PYME', 'pyme_tienda_conf',true);
-define('POS', 'pyme_tienda_pos',true);
+define('POS', 'pyme_pos',true);
 define('RESTRICCIONES', 'SI',true);
 define('SUGARCRM', 'sugarcrm',true);
 /* * CONSTANTES UTILIZADAS POR LA INTERFAZ DE REGISTRO DE EVENTOS (LOG) */

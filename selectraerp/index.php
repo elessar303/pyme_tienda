@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
     ob_start(); # Agregué esta funcion porque abajo estaba
 }
 
-include("../general.config.inc.php");
+include(__DIR__."/../general.config.inc.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@ include("../general.config.inc.php");
         <?php
         #session_start();
         #ob_start();
-        include("../menu_sistemas/lib/common.php");
+        include(__DIR__."/../menu_sistemas/lib/common.php");
 
         $conexion = new bd(SELECTRA_CONF_PYME);
         $empresas = new bd(SELECTRA_CONF_PYME);

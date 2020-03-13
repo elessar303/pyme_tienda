@@ -5,7 +5,7 @@
 if (empty($_SESSION['ROOT_PROYECTO'])) {
 	require_once(dirname(__FILE__).'/../../../../general.config.inc.php');
 }
-require_once($_SESSION['ROOT_PROYECTO'].'/general.config.inc.php');
+require_once(__DIR__.'/../../../../general.config.inc.php');
 
 define("USUARIO",DB_USUARIO);
 define("CLAVE",DB_CLAVE);
