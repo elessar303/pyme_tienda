@@ -1,9 +1,10 @@
 <?php
         # Este condicional y la inclusion antes de los comentarios estaban al inicio del archivo
-        if (!isset($_SESSION)) {
-            session_start();
-            ob_start(); # Agregué esta funcion porque abajo estaba
+        ob_start();
+        if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+            session_start(); 
         }
+        ob_clean();
 
         include("../general.config.inc.php"); # Usaba originalmente general.config.inc.php
 ?>

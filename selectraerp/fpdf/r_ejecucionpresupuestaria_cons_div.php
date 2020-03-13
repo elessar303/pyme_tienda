@@ -1,7 +1,9 @@
 <?php
-if (!isset($_SESSION)) {
-  session_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
 }
+ob_clean();
 require('fpdf.php');
 
 require_once '../lib/config.php';

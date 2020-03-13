@@ -1,10 +1,11 @@
 <?php
 
 ini_set("display_errors", 1);
-if (!isset($_SESSION)) {
-    session_start();
-    ob_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
 }
+ob_clean();
 
 require_once("../../config.ini.php");
 require_once("../../../general.config.inc.php");

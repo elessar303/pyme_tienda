@@ -63,7 +63,6 @@ $smarty->assign("option_values_id_estado", $arrayubi);
 $arraySelectOption = "";
 $arraySelectoutPut1 = "";
 $cliente = new Almacen();
-mysql_set_charset('utf8');
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT `nombre_punto`,codigo_siga_punto as siga  from puntos_venta where estatus='A'");
 foreach ($punto as $key => $puntos) {
     $arraySelectOption[] = $puntos["siga"];
@@ -74,7 +73,6 @@ $smarty->assign("option_values_punto", $arraySelectOption);
 $smarty->assign("option_output_punto", $arraySelectOutPut1);
 
 
-mysql_set_charset('utf8');
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT * from roles_firma where descripcion_rol=5");
 foreach ($punto as $key => $puntos) {
     $arraySelectOption2[] = $puntos["id_rol"];

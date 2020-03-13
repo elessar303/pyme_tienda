@@ -1,8 +1,10 @@
 <?php
 
-if (!isset($_SESSION)) {
-    session_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
 }
+ob_clean();
 
 require('fpdfselectra.php');
 ob_end_clean();    header("Content-Encoding: None", true);

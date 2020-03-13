@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.21, created on 2019-09-26 15:20:53
+<?php /* Smarty version 2.6.21, created on 2020-03-13 17:14:55
          compiled from entrada_almacen_nuevo.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'entrada_almacen_nuevo.tpl', 159, false),array('modifier', 'date_format', 'entrada_almacen_nuevo.tpl', 186, false),)), $this); ?>

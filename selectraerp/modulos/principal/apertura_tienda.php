@@ -72,6 +72,31 @@ $path_libros=$ruta_master."/libro_venta";
 $path_ingresos=$ruta_master."/control_ingresos";
 $path_cierre_pos=$ruta_master."/cierre_pos";
 
+if (!is_dir($path_inventario)) {
+    mkdir($path_inventario, 0777, true);
+}
+if (!is_dir($path_kardex)) {
+    mkdir($path_kardex, 0777, true);
+}
+if (!is_dir($path_ventas)) {
+    mkdir($path_ventas, 0777, true);
+}
+if (!is_dir($path_ventas_pyme)) {
+    mkdir($path_ventas_pyme, 0777, true);
+}
+if (!is_dir($path_descarga)) {
+    mkdir($path_descarga, 0777, true);
+}
+if (!is_dir($path_libros)) {
+    mkdir($path_libros, 0777, true);
+}
+if (!is_dir($path_ingresos)) {
+    mkdir($path_ingresos, 0777, true);
+}
+if (!is_dir($path_cierre_pos)) {
+    mkdir($path_cierre_pos, 0777, true);
+}
+
 $dia=date("d");
 $mes=date("m");
 $ano=date("y");

@@ -1,12 +1,12 @@
 <?php
-session_start();
-ini_set("display_errors",1);
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
+}
 require_once("../../../libs/php/adodb5/adodb.inc.php");
 require_once("../../../libs/php/configuracion/config.php");
 require_once("../../../libs/php/clases/ConexionComun.php");
 require_once("../../../libs/php/clases/login.php");
 require_once "../../../libs/php/clases/numerosALetras.class.php";
-
 include("../../../../menu_sistemas/lib/common.php") ;
 
 if(isset($_GET["opt"])==true||isset($_POST["opt"])==true){

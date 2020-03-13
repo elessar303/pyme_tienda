@@ -1,5 +1,9 @@
 <?php 
-session_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
+}
+ob_clean();
 ob_start();
 ?>
 <?php

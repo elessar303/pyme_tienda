@@ -1,19 +1,18 @@
 ﻿<?php
-session_start();
-ini_set("display_errors", 1);
-
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
+}
+ob_clean();
 require_once("../../../libs/php/adodb5/adodb.inc.php");
 require_once("../../../libs/php/configuracion/config.php");
 require_once("../../../libs/php/clases/ConexionComun.php");
 require_once("../../../libs/php/clases/comunes.php");
 require_once("../../../libs/php/clases/login.php");
 include ("../../../libs/php/clases/tfhka/TfhkaPHP.php");
-//include_once("../../../libs/php/clases/compra.php");
 include_once("../../../libs/php/clases/correlativos.php");
 require_once "../../../libs/php/clases/numerosALetras.class.php";
 include("../../../../menu_sistemas/lib/common.php");
-include("../../../../general.config.inc.php");
-
 
 if (isset($_GET["opt"]) == true || isset($_POST["opt"]) == true) {
     $conn = new ConexionComun();

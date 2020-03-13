@@ -77,6 +77,8 @@ class ConexionComun {
      * @return string
      */
     function ObtenerFilasBySqlSelect($sql) {
+
+        $this->db->Execute("SET NAMES 'utf8'");
         $this->instruccion = $sql;
         $this->rs = $this->db->Execute($this->instruccion);
         if (!$this->rs) {

@@ -1,9 +1,10 @@
 <?php
 
-if (!isset($_SESSION)) {
-    session_start();
-    ob_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
 }
+ob_clean();
 
 define("RAIZ_PROYECTO", dirname(__FILE__));
 require_once(RAIZ_PROYECTO . "/libs/php/smarty/Smarty.class.php");

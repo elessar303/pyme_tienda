@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.21, created on 2020-02-26 21:41:11
+<?php /* Smarty version 2.6.21, created on 2020-03-13 16:42:09
          compiled from sin_informacion.tpl */ ?>
 <div style="margin-right:10px; margin-top:10px;background-color:gray;color: white;">
 <b>Mensaje de Notificación</b><br/>

@@ -4,7 +4,11 @@ require_once '../../../general.config.inc.php';
 require_once '../AccionCertificadoRegalo.php';
 require_once '../AccionCajaFormaPago.php';
 
-if(!isset($_SESSION)){session_start();} 
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
+}
+ob_clean();
 
 
 class ControladorApp {

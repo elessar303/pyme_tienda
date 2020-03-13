@@ -1,8 +1,10 @@
 <?php
 
-if (!isset($_SESSION)) {
-    session_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
 }
+ob_clean();
 require('fpdfselectra.php');
 class PDF extends FPDFSelectra {
     function tHead($dpto, $moneda) {
