@@ -30,7 +30,7 @@ if (isset($_POST['buscar']) || $tipob != NULL) {
 } else {
     $instruccion = "SELECT * FROM actas_inventario";
 }
-mysql_set_charset('utf8');
+
 $num_paginas = $comunes->obtener_num_paginas($instruccion);
 $pagina = $comunes->obtener_pagina_actual($pagina, $num_paginas);
 $campos = $comunes->paginacion($pagina, $instruccion);

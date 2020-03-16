@@ -27,7 +27,7 @@ include '../general.config.inc.php';
             <div id="logo">
                 <div id="contenedor_botones">
                     <div id="administrativo">
-                        <a href="<?=PROJECT_URL."/".FOLDER_NAME?>/selectraerp/"></a>
+                        <a href="<?=PROJECT_URL?>/selectraerp/"></a>
                     </div>
                 </div>
             </div>

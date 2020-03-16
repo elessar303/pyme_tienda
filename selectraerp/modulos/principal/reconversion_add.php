@@ -1,7 +1,6 @@
 <?php
 include("../../libs/php/clases/almacen.php");
 require_once("../../../general.config.inc.php");
-require_once("../../../general.config.inc.php");
 $almacen = new Almacen();
 error_reporting(-1);
 

@@ -1,5 +1,9 @@
 <?php
-session_start();
+ob_start();
+if (session_status() !== PHP_SESSION_ACTIVE || session_id() === ""){
+    session_start(); 
+}
+ob_clean();
 require_once("../../../general.config.inc.php");
 require_once("../../libs/php/adodb5/adodb.inc.php");
 require_once("../../libs/php/configuracion/config.php");
@@ -11,7 +15,6 @@ require_once "../../libs/php/clases/numerosALetras.class.php";
 include("../../../menu_sistemas/lib/common.php");
 include("../../libs/php/clases/almacen.php");
 require_once("../../config.ini.php");
-require_once('../../../general.config.inc.php');
 require_once('../../../includes/clases/BDControlador.php');
 
 $pyme=DB_SELECTRA_FAC;
@@ -61,7 +64,7 @@ echo '</script>';
 exit();
 }
 
-$ruta_master=$_SESSION['ROOT_PROYECTO']."/selectraerp/uploads";
+$ruta_master=$ruta_server."/selectraerp/uploads";
 
 $path_inventario=$ruta_master."/inventario";
 $path_kardex=$ruta_master."/kardex";

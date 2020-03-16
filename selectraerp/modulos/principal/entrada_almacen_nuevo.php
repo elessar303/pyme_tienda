@@ -13,7 +13,7 @@
 # Actualizar. Obtener datos de la factura de compra (si fueron introducidos) 
 ################################################################################
 include("../../libs/php/clases/almacen.php");
-include("../../../general.config.inc.php");
+include_once "../../../general.config.inc.php";
 
 
 $almacen = new Almacen();
@@ -74,6 +74,8 @@ $smarty->assign("option_output_punto", $arraySelectOutPut1);
 
 
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT * from roles_firma where descripcion_rol=5");
+$arraySelectOption2=array();
+$arraySelectOutPut2=array();
 foreach ($punto as $key => $puntos) {
     $arraySelectOption2[] = $puntos["id_rol"];
     $arraySelectOutPut2[] = "C.I: ".$puntos["cedula_persona"]." - ".$puntos["nombre_persona"];
@@ -83,6 +85,8 @@ $smarty->assign("option_values_aprobado", $arraySelectOption2);
 $smarty->assign("option_output_aprobado", $arraySelectOutPut2);
 
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT * from roles_firma where descripcion_rol=3");
+$arraySelectOption3=array();
+$arraySelectOutPut3=array();
 foreach ($punto as $key => $puntos) {
     $arraySelectOption3[] = $puntos["id_rol"];
     $arraySelectOutPut3[] = "C.I: ".$puntos["cedula_persona"]." - ".$puntos["nombre_persona"];
@@ -92,6 +96,8 @@ $smarty->assign("option_values_receptor", $arraySelectOption3);
 $smarty->assign("option_output_receptor", $arraySelectOutPut3);
 
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT * from roles_firma where descripcion_rol=4");
+$arraySelectOption4=array();
+$arraySelectOutPut4=array();
 foreach ($punto as $key => $puntos) {
     $arraySelectOption4[] = $puntos["id_rol"];
     $arraySelectOutPut4[] = "C.I: ".$puntos["cedula_persona"]." - ".$puntos["nombre_persona"];

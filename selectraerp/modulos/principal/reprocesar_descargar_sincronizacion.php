@@ -11,8 +11,6 @@ require_once "../../libs/php/clases/numerosALetras.class.php";
 include("../../../menu_sistemas/lib/common.php");
 include("../../libs/php/clases/almacen.php");
 require_once("../../config.ini.php");
-require_once('../../../general.config.inc.php');
-require_once("../../../general.config.inc.php");
 require_once('../../../includes/clases/BDControlador.php');
 
 if (isset($_POST["descargar"])) {

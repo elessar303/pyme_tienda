@@ -4,7 +4,6 @@ $_SESSION['ROOT_PROYECTO1']="/var/www/pyme";
 ini_set("display_errors", 1);
 
 require_once("../../../general.config.inc.php");
-require_once("../../../general.config.inc.php");
 require_once("../../libs/php/adodb5/adodb.inc.php");
 require_once("../../libs/php/configuracion/config.php");
 require_once("../../libs/php/clases/ConexionComun.php");

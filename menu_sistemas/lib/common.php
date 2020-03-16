@@ -1,13 +1,5 @@
 <?php
-//require_once($_SERVER['DOCUMENT_ROOT'] . '/pyme/general.config.inc.php');
-if(!isset($_SESSION['ROOT_PROYECTO']) || $_SESSION['ROOT_PROYECTO']=='')
-{
-	require_once(__DIR__.'/../../general.config.inc.php');
-}
-else
-{
-	require_once(__DIR__.'/../../general.config.inc.php');
-}
+require_once(__DIR__.'/../../general.config.inc.php');
 
 function envia_array($array) {
     $tmp = serialize($array);

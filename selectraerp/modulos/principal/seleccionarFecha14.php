@@ -8,7 +8,6 @@ include("../../libs/php/clases/clientes.php");
 $bdCentral= "selectrapyme_central";
 $bdSelectrapyme = "selectrapyme";
 $almacen = new Almacen();
-mysql_set_charset('utf8');
 $campos = $almacen->ObtenerFilasBySqlSelect("SELECT * FROM almacen;");
 foreach ($campos as $key => $item) {
     $arraySelectOption[] = $item["cod_almacen"];
@@ -21,7 +20,6 @@ $smarty->assign("option_output_almacen", $arraySelectoutPut);
 $arraySelectOption = "";
 $arraySelectoutPut = "";
 $provee = new Proveedores();
-mysql_set_charset('utf8');
 $campos = $provee->ObtenerFilasBySqlSelect("SELECT * FROM proveedores;");
 foreach ($campos as $key => $item) {
     $arraySelectOption[] = $item["id_proveedor"];
@@ -36,7 +34,6 @@ $smarty->assign("campo_seccion", $campos);
 $arraySelectOption = "";
 $arraySelectoutPut = "";
 $producto = new Producto();
-mysql_set_charset('utf8');
 //$campos = $producto->ObtenerFilasBySqlSelect("SELECT * FROM $bdSelectrapyme.item ORDER BY descripcion1"); //apunte a la DB para realizar pruebas
 $campos = $producto->ObtenerFilasBySqlSelect("SELECT * FROM item");
 foreach ($campos as $key => $item) {
@@ -50,7 +47,6 @@ $smarty->assign("option_output_producto", $arraySelectOutPut);
 $bdpp=DB_REPORTE_CENTRAL;
 $filtro_siga_id="";
 $siga=new Almacen();
-mysql_set_charset('utf8');
 $cod_sig=$siga->ObtenerFilasBySqlSelect("select distinct siga from $bdpp.vproducto");
 foreach ($cod_sig as $key => $item) {
     $arraycod_sigainput[] = $item["siga"];
@@ -64,7 +60,6 @@ $smarty->assign("option_values_siga", $arraycod_sigainput);
 $arraySelectOption = "";
 $arraySelectoutPut1 = "";
 $cliente = new Clientes();
-mysql_set_charset('utf8');
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT `nombre_punto`,codigo_siga_punto as siga  from $bdCentral.puntos_venta where estatus='A'");
 foreach ($punto as $key => $puntos) {
     $arraySelectOption[] = $puntos["siga"];
@@ -78,7 +73,6 @@ $smarty->assign("option_output_punto", $arraySelectOutPut1);
 $arraySelectOption2 = "";
 $arraySelectoutPut2 = "";
 $cliente = new Clientes();
-mysql_set_charset('utf8');
 $campos = $cliente->ObtenerFilasBySqlSelect("SELECT * FROM $bdCentral.estados");
 foreach ($campos as $key => $item) {
     $arraySelectOption2[] = $item["codigo_estado"];
@@ -109,7 +103,6 @@ $smarty->assign("option_output_marca", $arraySelectOutPut4);
 $arraySelectOption5 = "";
 $arraySelectoutPut5 = "";
 $cliente = new Clientes();
-mysql_set_charset('utf8');
 $campos3 = $cliente->ObtenerFilasBySqlSelect("SELECT * FROM grupo");
 
 foreach ($campos3 as $key => $item) {
@@ -123,7 +116,6 @@ $smarty->assign("option_output_categoria", $arraySelectOutPut5);
 $arraySelectOption7 = "";
 $arraySelectOutPut7 = "";
 $cliente = new Clientes();
-mysql_set_charset('utf8');
 $campos3 = $cliente->ObtenerFilasBySqlSelect("SELECT * FROM sub_grupo");
 
 foreach ($campos3 as $key => $item) {
@@ -137,7 +129,6 @@ $smarty->assign("option_output_subcategoria", $arraySelectOutPut7);
 $arraySelectOption6 = "";
 $arraySelectOutPut6 = "";
 $cliente = new Clientes();
-mysql_set_charset('utf8');
 /*$campos3 = $cliente->ObtenerFilasBySqlSelect("SELECT TRIM(descripcion1) as descripcion1,codigo_barras 
     FROM $bdCentral.productos order by descripcion1"); ORIGINAL...!!! */
 $campos3 = $cliente->ObtenerFilasBySqlSelect("SELECT TRIM(i.descripcion1) as descripcion1,codigo_barras,

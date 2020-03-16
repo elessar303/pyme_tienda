@@ -32,7 +32,6 @@ if (isset($_POST['buscar']) || $tipob != NULL) {
 }else {
     $instruccion = "SELECT *  FROM $tabla  where people.ID=arqueo_cajero.id_cajero or usuarios.cod_usuario=arqueo_cajero.id_cajero GROUP BY arqueo_cajero.id ORDER BY arqueo_cajero.id desc";
 }
-//mysql_set_charset('utf8');
 $num_paginas = $comunes->obtener_num_paginas($instruccion);
 $pagina = $comunes->obtener_pagina_actual($pagina, $num_paginas);
 $campos = $comunes->paginacion($pagina, $instruccion);

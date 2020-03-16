@@ -31,7 +31,6 @@ if (isset($_POST['buscar']) || $tipob != NULL) {
 }else {
     $instruccion = "SELECT a.id as id_libro, caja_host, fecha, usuario  FROM $tabla a inner join caja_impresora b on a.serial_impresora=b.serial_impresora inner join usuarios c on a.id_usuario_creacion=c.cod_usuario order by id_libro desc";
 }
-//mysql_set_charset('utf8');
 $num_paginas = $comunes->obtener_num_paginas($instruccion);
 $pagina = $comunes->obtener_pagina_actual($pagina, $num_paginas);
 $campos = $comunes->paginacion($pagina, $instruccion);

@@ -34,7 +34,6 @@ $smarty->assign("option_values_id_estado", $arrayubi);
 $arraySelectOption = "";
 $arraySelectoutPut1 = "";
 $cliente = new Almacen();
-mysql_set_charset('utf8');
 $punto = $cliente->ObtenerFilasBySqlSelect("SELECT `nombre_punto`,codigo_siga_punto as siga  from puntos_venta where estatus='A'");
 foreach ($punto as $key => $puntos) {
     $arraySelectOption[] = $puntos["siga"];

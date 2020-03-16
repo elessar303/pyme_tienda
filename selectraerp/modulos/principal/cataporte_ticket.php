@@ -30,7 +30,6 @@ if (isset($_POST['buscar']) || $tipob != NULL) {
 }else {
     $instruccion = "SELECT * FROM $tabla where tipo_cataporte=1 order by fecha desc";
 }
-mysql_set_charset('utf8');
 $num_paginas = $comunes->obtener_num_paginas($instruccion);
 $pagina = $comunes->obtener_pagina_actual($pagina, $num_paginas);
 $campos = $comunes->paginacion($pagina, $instruccion);

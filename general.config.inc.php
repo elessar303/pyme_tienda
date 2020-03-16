@@ -65,7 +65,7 @@ define('REG_SQL_OK',6, true);
 define('REG_SQL_FAIL',7, true);
 define('REG_ILLEGAL_ACCESS',8, true);
 define('REG_ALL',9, true);
-$_SESSION['ROOT_PROYECTO']= $_SERVER['DOCUMENT_ROOT']."/".FOLDER_NAME;//Ruta del proyecto
+$_SESSION['ROOT_PROYECTO']= $_SERVER['DOCUMENT_ROOT'];//Ruta del proyecto
 $ConnSys = array('server' => DB_HOST, 'user' => DB_USUARIO, 'pass' => DB_CLAVE, 'db' => DB_SELECTRA_DEFAULT);
 $config['bd']='mysql';
 require_once('funciones.inc.php');

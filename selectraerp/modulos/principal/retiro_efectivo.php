@@ -34,7 +34,6 @@ if (isset($_POST['buscar']) || $tipob != NULL) {
 }else {
      $instruccion = "SELECT * FROM $tabla as t left join $pos.people as pos on t.id_cajero=pos.id left join usuarios u on  t.id_cajero=u.cod_usuario order by t.id";
 }
-//mysql_set_charset('utf8');
 $num_paginas = $comunes->obtener_num_paginas($instruccion);
 $pagina = $comunes->obtener_pagina_actual($pagina, $num_paginas);
 $campos = $comunes->paginacion($pagina, $instruccion);
