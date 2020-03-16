@@ -74,6 +74,7 @@ $path_descarga=$ruta_master."/descarga_ventas";
 $path_libros=$ruta_master."/libro_venta";
 $path_ingresos=$ruta_master."/control_ingresos";
 $path_cierre_pos=$ruta_master."/cierre_pos";
+$path_comprobantes=$ruta_master."/comprobantes";
 
 if (!is_dir($path_inventario)) {
     mkdir($path_inventario, 0777, true);
@@ -98,6 +99,9 @@ if (!is_dir($path_ingresos)) {
 }
 if (!is_dir($path_cierre_pos)) {
     mkdir($path_cierre_pos, 0777, true);
+}
+if (!is_dir($path_comprobantes)) {
+    mkdir($path_comprobantes, 0777, true);
 }
 
 $dia=date("d");
