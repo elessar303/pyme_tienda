@@ -1,6 +1,6 @@
 selectraerp/uploads/**/*.csv
 selectraerp/uploads/**/*.txt
 selectraerp/uploads/**/*.zip
-selectraerp/modulos/principal/templates_c/*
-selectraerp/modulos/sesion/templates_c/*
-selectraerp/modulos/sincronizacion/templates_c/*
+selectraerp/modulos/principal/templates_c/*.php
+selectraerp/modulos/sesion/templates_c/*.php
+selectraerp/modulos/sincronizacion/templates_c/*.php
