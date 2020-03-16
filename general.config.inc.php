@@ -27,7 +27,6 @@ define('PROJECT_URL', 'http://127.0.0.1:8082');
 define('SELECTRA_CONF_PYME', 'pyme_tienda_conf',true);//BD CONF
 define('DB_SELECTRA_CONF', 'pyme_tienda_conf', true);//BD CONF
 define('DB_SELECTRA_FAC', 'pyme_pyme', true);//BD PYME
-define('DB_PYME', 'pyme_pyme', true );//BD PYME
 define('DB_SELECTRA_DEFAULT', 'pyme_pyme', true);//BD PYME
 define('POS', 'pyme_pos',true);//BD POS
 /*------------------------
@@ -50,6 +49,7 @@ define('DB_SELECTRA_PYMEP', 'selectrapyme_central_ccs', true);
 /*---------------------------------
 OJO No modificar de aqui para abajo
 ---------------------------------*/
+define('DB_PYME', 'mysql', true );
 define('DB_SELECTRA_CONT', 'pyme_contabilidad', true);
 define('DB_SELECTRA_NOM', 'pyme_nomina', true);
 define('DB_SELECTRA_BIE', '', true);

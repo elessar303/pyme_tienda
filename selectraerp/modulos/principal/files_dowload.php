@@ -47,7 +47,7 @@ function compararTamano($rutaR,$rutaL,$sftp){
 		
 }
 
-$pyme=DB_PYME;
+$pyme=DB_SELECTRA_FAC;
 $pos=POS;
 $tipo="E";
 $cadena="52";

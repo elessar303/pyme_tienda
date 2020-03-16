@@ -46,7 +46,7 @@ function compararTamano($rutaR,$rutaL,$sftp){
 		
 }
 $comunes = new Producto();
-$pyme=DB_PYME;
+$pyme=DB_SELECTRA_FAC;
 $pos=POS;
 $tipo="E";
 $cadena="52";
