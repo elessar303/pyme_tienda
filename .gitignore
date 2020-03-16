@@ -1,3 +1,4 @@
+general.config.inc.php
 selectraerp/uploads/**/*.csv
 selectraerp/uploads/**/*.txt
 selectraerp/uploads/**/*.zip
