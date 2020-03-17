@@ -1,6 +1,6 @@
 <?php
 #require_once($_SERVER['DOCUMENT_ROOT'].'/pyme/general.config.inc.php');
-require_once('../../general.config.inc.php');
+require_once __DIR__.'/../../general.config.inc.php';
 
 function envia_array($array) {
     $tmp = serialize($array);
@@ -1095,7 +1095,7 @@ new Ajax.Request(\''.$file.'?rsac=deleted\', { parameters: \'id=\'+id , onComple
 }
 function conexion_formular(){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$host = DB_HOST;
   	$usuario = DB_USUARIO;
   	$clave = DB_CLAVE; 
@@ -1108,7 +1108,7 @@ if($config[bd]=="mysql"){
 }
 function conexion_instructivo(){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$host = DB_HOST;
   	$usuario = DB_USUARIO;
   	$clave = DB_CLAVE; 
@@ -1122,7 +1122,7 @@ if($config[bd]=="mysql"){
 function field_name($resultado,$campo)
 {
 	$config=parse_ini_file("selectra.ini");
-	if($config[bd]=="mysql")
+	if($config['bd']=="mysql")
 	{
 		$fila=mysql_field_name($resultado,$campo);
 		return $fila;
@@ -1135,7 +1135,7 @@ function field_name($resultado,$campo)
 
 function conexion(){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$host = DB_HOST;
   	$usuario = DB_USUARIO;
   	$clave = DB_CLAVE; 
@@ -1149,7 +1149,7 @@ if($config[bd]=="mysql"){
 
 function conexion_contab(){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$host = DB_HOST;
   	$usuario = DB_USUARIO;
   	$clave = DB_CLAVE; 
@@ -1163,7 +1163,7 @@ if($config[bd]=="mysql"){
 
 function conexion_sol(){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$host="localhost";
 	$usuario="root";
 	$clave="";
@@ -1179,7 +1179,7 @@ if($config[bd]=="mysql"){
 function conexion_conf(){
 $config=parse_ini_file("selectra.ini");
 
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$host = DB_HOST;
   	$usuario = DB_USUARIO;
   	$clave = DB_CLAVE; 
@@ -1192,7 +1192,7 @@ if($config[bd]=="mysql"){
 }
 function cerrar_conexion($conexion){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	mysql_close($conexion);
 }else{
 	echo "No se ha implementado en postgres";
@@ -1200,7 +1200,7 @@ if($config[bd]=="mysql"){
 }
 function query($consulta, $conexion){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 
 $resultado=mysql_query($consulta,$conexion) or die("No se puede realizar la consulta en la linea ".$consulta." ".mysql_error());
 	return $resultado;
@@ -1213,7 +1213,7 @@ $resultado=mysql_query($consulta,$conexion) or die("No se puede realizar la cons
 function fetch_array($resultado){
 
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$fila=mysql_fetch_array($resultado);
 	return $fila;
 }else{
@@ -1224,7 +1224,7 @@ if($config[bd]=="mysql"){
 
 function num_rows($resultado){
 $config=parse_ini_file("selectra.ini");
-if($config[bd]=="mysql"){
+if($config['bd']=="mysql"){
 	$numero=mysql_num_rows($resultado);
 	return $numero;
 }else{

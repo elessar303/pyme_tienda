@@ -115,7 +115,7 @@ class FPDFSelectra extends FPDF {
         return $nl;
     }
 
-    function Row($data) {
+    function Row($data, $border = 0) {
         //Calculate the height of the row
         $nb = 0;
         for ($i = 0; $i < count($data); $i++)

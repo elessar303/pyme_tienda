@@ -266,5 +266,5 @@ $pdf->PrintChapter();
 $pdf->SetDisplayMode('default');
 ob_end_clean();
 $pdf->Output();
-ob_end_flush();
+if (ob_get_contents()) ob_end_clean();
 ?>

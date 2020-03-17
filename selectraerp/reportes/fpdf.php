@@ -66,6 +66,7 @@ class FPDF extends FPDF_ConstructorDeTabla
 	var $creator;            //creator
 	var $AliasNbPages;       //alias for total number of pages
 	var $PDFVersion;         //PDF version number
+	var $celdas;         //PDF version number
 
 	/*******************************************************************************
 	 *                                                                              *

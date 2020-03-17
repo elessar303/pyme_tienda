@@ -40,9 +40,9 @@ class PDF extends FPDFSelectra {
     function imprimir_datos(/* $nro_odp, $fila_odp, $moneda, $pdf */$dpto) {
 
         $cantidad_registros = 40;
-        if (($cont + 3) > $cantidad_registros) {
+        /*if (($cont + 3) > $cantidad_registros) {
             // $this->Ln(60);
-        }
+        }*/
 
         $conexion = conexion();
         $rs = query("SELECT moneda FROM parametros_generales;", $conexion);
@@ -108,7 +108,7 @@ class PDF extends FPDFSelectra {
             $this->SetAligns(array('C','C', 'L', 'R', 'R', 'R','R', 'R','R'));
             $this->Setceldas(array(0,0, 0, 0, 0, 0));
             $this->Setancho(array(5,5, 5, 5, 5, 5, 5, 5,5));
-            $this->Row(array($contador,$var_codigo, $var_descrip, $var_exi, $var_preciosiva, $iva."%", $var_preciociva, $var_precio_sub,$var_precio_total));
+            $this->Row(array($contador,$var_codigo, $var_descrip, $var_exi, $var_preciosiva, $iva."%", $var_preciociva, $var_precio_sub,$var_precio_total),0);
 
             if ($cont == $cantidad_registros) {
                 // $this->Ln(80);
@@ -126,7 +126,7 @@ class PDF extends FPDFSelectra {
         $this->SetAligns(array('R'));
         $this->Setceldas(array(0));
         $this->Setancho(array(5));
-        $this->Row(array("SUBTOTAL RUBRO: Bs. " . number_format($subtotal_dpto, 2, ',', '.')));
+        $this->Row(array("SUBTOTAL RUBRO: Bs. " . number_format($subtotal_dpto, 2, ',', '.')),0);
 
         return $subtotal_dpto;
     }
@@ -134,9 +134,9 @@ class PDF extends FPDFSelectra {
     function imprimir_datos2(/* $nro_odp, $fila_odp, $moneda, $pdf */$dpto) {
 
         $cantidad_registros = 40;
-        if (($cont + 3) > $cantidad_registros) {
+        /*if (($cont + 3) > $cantidad_registros) {
             // $this->Ln(60);
-        }
+        }*/
 
         $conexion = conexion();
         $rs = query("SELECT moneda FROM parametros_generales;", $conexion);
@@ -203,7 +203,7 @@ class PDF extends FPDFSelectra {
             $this->SetAligns(array('C','C', 'L', 'R', 'R', 'R'));
             $this->Setceldas(array(0,0, 0, 0, 0, 0));
             $this->Setancho(array(5,5, 5, 5, 5, 5, 5, 5));
-            $this->Row(array($contador,$var_codigo, $var_descrip, $var_exi, $var_precio, $var_precio_sub));
+            $this->Row(array($contador,$var_codigo, $var_descrip, $var_exi, $var_precio, $var_precio_sub),0);
 
             if ($cont == $cantidad_registros) {
                 // $this->Ln(80);
@@ -221,7 +221,7 @@ class PDF extends FPDFSelectra {
         $this->SetAligns(array('R'));
         $this->Setceldas(array(0));
         $this->Setancho(array(5));
-        $this->Row(array("SUBTOTAL RUBRO: Bs. " . number_format($subtotal_dpto, 2, ',', '.')));
+        $this->Row(array("SUBTOTAL RUBRO: Bs. " . number_format($subtotal_dpto, 2, ',', '.')),0);
 
         return $subtotal_dpto;
     }
@@ -256,7 +256,7 @@ $conexion = conexion();
 $tabla = "item";
 $consulta = "SELECT * FROM item WHERE cod_item_forma = 1;";
 $resultado = query($consulta, $conexion);
-$codigo_snc = $_GET['codigo_snc'];
+$codigo_snc = isset($_GET['codigo_snc']) ? $_GET['codigo_snc']: '';
 
 $sql = "SELECT * FROM departamentos;";
 $rs = query($sql, $conexion);
