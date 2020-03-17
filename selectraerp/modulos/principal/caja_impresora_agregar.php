@@ -27,6 +27,8 @@ $smarty->assign("modulos", $modulos);
 $tipo_venta= $usuarios->ObtenerFilasBySqlSelect("Select venta_pyme from parametros_generales");
 $tipo_venta=$tipo_venta[0]["venta_pyme"];
 
+$arraySelectOption = array();
+$arraySelectOutPut = array();
 $smarty->assign("tipo_venta", $tipo_venta);
 foreach ($cajas as $key => $item) {
     $arraySelectOption[] = $item["host"];
