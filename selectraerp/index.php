@@ -47,7 +47,9 @@ include(__DIR__."/../general.config.inc.php");
                     <br/><br/><br/>Esta Operaci&oacute;n <br/> Puede Durar Algunos Minutos<br/><br/>
                     <img src="../includes/imagenes/logo.png" />
                 </div>
-              <img src="../includes/imagenes/siscolp.png" width="401" height="90"/>
+                <div style="text-align: center">
+                    <img src="../includes/imagenes/siscolp.png" style="align-content: center"/>
+                </div>
                 <hr/>
                 <div class="titulo1">SELECCIONE UNA EMPRESA PARA CONTINUAR </div>
                 <hr/>

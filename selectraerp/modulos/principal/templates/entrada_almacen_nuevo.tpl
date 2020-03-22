@@ -218,13 +218,14 @@
                             <span style="font-family:'Verdana';font-weight:bold;"><b>Punto de Procedencia (*):</b></span>
                         </td>
                              <!-- PUNTOS -->
-                            <td>
-                                <select name="puntodeventa" id="puntodeventa" class="form-text" style="width:205px">
-                                    <option value="0">Todos</option>                               
-                                {html_options values=$option_values_punto output=$option_output_punto selected=$puntodeventa}
-                                
-                                </select>
-                            </td>                     
+                        <td>
+                            <!-- <select name="puntodeventa" id="puntodeventa" class="form-text" style="width:205px">
+                                <option value="0">Todos</option>                               
+                            {html_options values=$option_values_punto output=$option_output_punto selected=$puntodeventa}
+                            
+                            </select>-->
+                            <input type="text" maxlength="100" name="puntodeventa" id="puntodeventa" class="form-text" style="width:205px" />
+                        </td>                     
                     </tr>
                     <!--Cierre de la Seccion nueva-->
 

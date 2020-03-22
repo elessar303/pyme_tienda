@@ -16,17 +16,17 @@
     </head>
     <body>
         <div id="login">
-            <div id="logo">
-                <img src="../../../includes/imagenes/siscolp.png" width="350"/>
+            <div id="logo" style="text-align:center">
+                <img src="../../../includes/imagenes/siscolp.png"/>
             </div>
-            <div id="cont">
+            <div id="cont" style="text-align:center">
                 <form method="post">
                     <ul>
                         <li></li>
                         <li>
                             <label>Iniciar sesi&oacute;n</label>
                         </li>
-                            <!-- <label for="username"><b>Nombre de usuario</b></label> -->
+                            <label for="username"><b>Usuario</b></label>
                             <input type="text" name="txtUsuario" id="username" placeholder="Nombre de usuario" class="form-text" />
                             {literal}
                                 <script type="text/javascript">//<![CDATA[
@@ -37,7 +37,7 @@
                         </li>
                         <li>
                             <br/>
-                            <!-- <label for="password"><b>Contrase&ntilde;a</b></label> -->
+                            <label for="password"><b>Contrase&ntilde;a</b></label>
                             <input type="password" name="txtContrasena" id="password" placeholder="Contrase&ntilde;a" class="form-text" />
                         </li>
                         <li>

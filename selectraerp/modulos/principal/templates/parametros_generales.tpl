@@ -317,7 +317,7 @@
                                        
                                     </td>
                                     <td style="padding-top:2px; padding-bottom: 2px;">
-                                        <input value="{$DatosGenerales[0].codigo_siga}" type="text" id="codigo_siga" name="codigo_siga" placeholder="codigo SIGA"  class="form-text" maxlength="3" />
+                                        <input value="{$DatosGenerales[0].codigo_siga}" type="text" id="codigo_siga" name="codigo_siga" placeholder="codigo SIGA"  class="form-text" maxlength="20" />
                                     </td>
                                 </tr>
                                 <tr>

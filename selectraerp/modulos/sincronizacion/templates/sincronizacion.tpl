@@ -45,8 +45,8 @@
     </head>
     <body onload="nobackbutton();">
         <div id="login">
-            <div id="logo">
-                <img src="../../../includes/imagenes/siscolp.png" width="350"/>
+            <div id="logo" style="text-align:center">
+                <img src="../../../includes/imagenes/siscolp.png"/>
             </div>
             <div id="cont1">
                {if $usuarioB==1 }
