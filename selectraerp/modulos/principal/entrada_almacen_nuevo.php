@@ -33,6 +33,8 @@ if (isset($_GET["cod"]) /* && isset($_GET["cod2"]) */) {
     $pendiente = !$pendiente;
 }
 
+$smarty->assign("root_proyecto", $_SESSION['DOCUMENT_ROOT']);
+
 $login = new Login();
 $smarty->assign("nombre_usuario", $login->getNombreApellidoUSuario());
 //cargando select de proveedores

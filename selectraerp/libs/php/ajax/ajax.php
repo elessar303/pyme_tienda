@@ -1062,7 +1062,8 @@ case "generarComprobanteMaestro" :
                         $andWHERE = "";
                     }
                 }
-                    
+
+                $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item . " " . $andWHERE;
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
                     
                 $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item . " " . $andWHERE . " limit $start,$limit";
@@ -4399,7 +4400,7 @@ where a.money not in  (select  money from $bd_pyme.libro_ventas) and date(dateen
                     $andWHERE .= " upper(descripcion) like upper('%" . $nombre . "%')";
                 }
 
-                $sql = "SELECT * FROM proveedores WHERE estatus = 'A' " . $andWHERE;
+                $sql = "SELECT count(*) as total FROM proveedores WHERE estatus = 'A' " . $andWHERE;
 
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
 
@@ -4407,7 +4408,7 @@ where a.money not in  (select  money from $bd_pyme.libro_ventas) and date(dateen
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
 
             } else {
-                $sql = "SELECT * FROM proveedores WHERE estatus = 'A'";
+                $sql = "SELECT count(*) as total FROM proveedores WHERE estatus = 'A'";
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
                 $sql = "SELECT * FROM proveedores WHERE estatus = 'A' limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
@@ -4415,7 +4416,7 @@ where a.money not in  (select  money from $bd_pyme.libro_ventas) and date(dateen
 
             echo json_encode(array(
                 "success" => true,
-                "total" => count($campos_comunes1),
+                "total" => $campos_comunes1[0]['total'],
                 "data" => $campos_comunes
             ));
             break;
@@ -4476,14 +4477,14 @@ where a.money not in  (select  money from $bd_pyme.libro_ventas) and date(dateen
                     $andWHERE = "";
                 }
 
-                $sql = "SELECT * FROM clientes WHERE estado = 'A' " . $andWHERE;
+                $sql = "SELECT count(*) as total FROM clientes WHERE estado = 'A' " . $andWHERE;
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
 
                 $sql = "SELECT * FROM clientes WHERE estado = 'A' " . $andWHERE . " limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
 
             } else {
-                $sql = "SELECT * FROM clientes WHERE estado = 'A'";
+                $sql = "SELECT count(*) as total FROM clientes WHERE estado = 'A'";
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
                 $sql = "SELECT * FROM clientes WHERE estado = 'A' limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
@@ -4491,7 +4492,7 @@ where a.money not in  (select  money from $bd_pyme.libro_ventas) and date(dateen
 
             echo json_encode(array(
                 "success" => true,
-                "total" => count($campos_comunes1),
+                "total" => $campos_comunes1[0]['total'],
                 "data" => $campos_comunes
             ));
             break;
@@ -5760,14 +5761,14 @@ order by mb.cod_movimiento_ban";
                     $andWHERE = "UPPER(i.referencia) = UPPER('".$codigo."') or UPPER(i.cod_item) like UPPER('%".$codigo."%') or UPPER(i.codigo_barras) like UPPER('%".$codigo."%')";
                 }
 
-                $sql = "SELECT i.* FROM item i WHERE i.cod_item_forma = " . $tipo_item . " and (" . $andWHERE . ") ";
+                $sql = "SELECT count(*) as total FROM item i WHERE i.cod_item_forma = " . $tipo_item . " and (" . $andWHERE . ") ";
 
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
   
                 $sql = "SELECT i.* FROM item i WHERE i.cod_item_forma = " . $tipo_item . " and " . $andWHERE . " limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
             } else {
-                $sql = "SELECT i.* FROM item i WHERE i.cod_item_forma = " . $tipo_item;
+                $sql = "SELECT count(*) as total FROM item i WHERE i.cod_item_forma = " . $tipo_item;
                 $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
                 $sql = "SELECT i.* FROM item i WHERE i.cod_item_forma = " . $tipo_item . " limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
@@ -5775,7 +5776,7 @@ order by mb.cod_movimiento_ban";
             
             echo json_encode(array(
                 "success" => true,
-                "total" => count($campos_comunes1),
+                "total" => $campos_comunes1[0]['total'],
                 "data" => $campos_comunes
             ));
 
@@ -5840,6 +5841,9 @@ order by mb.cod_movimiento_ban";
             $busqueda = (isset($_POST["BuscarBy"])) ? $_POST["BuscarBy"] : "";
             $limit = (isset($_POST["limit"])) ? $_POST["limit"] : 10;
             $start = (isset($_POST["start"])) ? $_POST["start"] : 0;
+            $onlyExistencia = (isset($_POST["onlyExistencia"])) ? $_POST["onlyExistencia"] : 'no';
+
+            $sqlExistencia = ($onlyExistencia == 'si') ? " AND i.id_item IN ( SELECT distinct(id_item) FROM item_existencia_almacen WHERE cantidad > 0 )" : '';
 
             if ($busqueda) {
                 //filtro para productos
@@ -5912,22 +5916,25 @@ order by mb.cod_movimiento_ban";
                         $andWHERE = "";
                     }
                 }
+
+                $sql1 = "SELECT count(*) as total FROM item i WHERE i.cod_item_forma = " . $tipo_item . " " . $andWHERE.$sqlExistencia;
+                $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql1);
 					
-                $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
-					
-                $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item . " " . $andWHERE . " limit $start,$limit";
+                $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item . " " . $andWHERE.$sqlExistencia. " limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
             } else {
-                $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item;
-                $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql);
-                $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item . " limit $start,$limit";
+                $sql1 = "SELECT count(*) as total FROM item i WHERE cod_item_forma = " . $tipo_item.$sqlExistencia;
+                $campos_comunes1 = $conn->ObtenerFilasBySqlSelect($sql1);
+                $sql = "SELECT * FROM item i WHERE cod_item_forma = " . $tipo_item.$sqlExistencia . " limit $start,$limit";
                 $campos_comunes = $conn->ObtenerFilasBySqlSelect($sql);
             }
             	
             echo json_encode(array(
                 "success" => true,
-                "total" => count($campos_comunes1),
-                "data" => $campos_comunes
+                "total" => $campos_comunes1[0]['total'],
+                "data" => $campos_comunes,
+                'sql' => $sql,
+                'sql1' => $sql1
             ));
 
             break;
@@ -6136,10 +6143,10 @@ order by mb.cod_movimiento_ban";
             break;
             
             case "cantidadSeriales":
-                $id=$_GET[cod];
-	            $cant=$_GET[cant];	            
+                $id=$_GET['cod'];
+	            $cant=$_GET['cant'];	            
 	            $campos = $conn->ObtenerFilasBySqlSelect("SELECT *	from item WHERE id_item ='$id'");
-	            if($campos[0][seriales]==1)
+	            if($campos[0]['seriales']==1)
 	            {
 	            	
 		            echo '<form id="seriales" name="seriales"><table>';

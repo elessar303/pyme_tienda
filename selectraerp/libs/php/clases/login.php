@@ -13,7 +13,7 @@ class Login extends ConexionComun {
         $this->instruccion = "SELECT * FROM usuarios  where usuario = '" . $this->usuario . "'  and clave   = '" . $this->contrasena . "'";
         $this->rs = $this->ObtenerFilasBySqlSelect($this->instruccion);
 
-        if (!$this->rs[0]) {
+        if (!isset($this->rs[0])) {
             //$this->logout();
             return false;
         } else {

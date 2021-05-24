@@ -33,6 +33,22 @@
                         </script>
                     {/literal}
                 {/if}
+                {if $cotizacion_diaria eq ""}
+                    {literal}
+                        <script type="text/javascript">//<![CDATA[
+                            Ext.onReady(function() {
+                                new Ext.Window({
+                                    title: 'Alerta de Cotizaci&oacute;n',
+                                    modal: true,
+                                    autoHeight: true,
+                                    width: 300,
+                                    html: '{/literal}No hay cotizacion para la fecha actual, por favor dirijase al modulo correspondiente para agregarla{literal}'
+                                }).show();
+                            });
+                            //]]>
+                        </script>
+                    {/literal}
+                {/if}
             </div>
         </div>
         {include file="foolter.tpl"}

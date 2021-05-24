@@ -70,16 +70,30 @@ pBuscaItem.main = {
                 pBuscaItem.main.aplicarFiltroByFormularioProducto();
             }
         }, this);
-        this.referencia = new Ext.form.TextField({
-            fieldLabel:'Referencia',
-            name:'referencia',
-            width:90
+        this.chkExistencia =new Ext.form.ComboBox({
+            store: new Ext.data.ArrayStore({
+                id:0,
+                fields:[
+                'value',
+                'display'
+                ],
+                data:[
+                ['no','No'],
+                ['si','Si']
+                ]
+            }),
+            displayField:'display',
+            fieldLabel:'En Existencia',
+            valueField:'value',
+            hiddenName:'onlyExistencia',
+            typeAhead: true,
+            mode: 'local',
+            value:'si',
+            width:40,
+            forceSelection: true,
+            triggerAction: 'all',
+            selectOnFocus:true
         });
-        this.referencia.on('specialkey', function(f, event){
-            if(event.getKey() == event.ENTER) {
-                pBuscaItem.main.aplicarFiltroByFormularioProducto();
-            }
-        }, this);
         this.cmbTipoItem = new Ext.form.ComboBox({
             store: new Ext.data.ArrayStore({
                 id:0,
@@ -99,7 +113,7 @@ pBuscaItem.main = {
             typeAhead: true,
             mode: 'local',
             value:'1',
-            width:70,
+            width:80,
             forceSelection: true,
             triggerAction: 'all',
             selectOnFocus:true
@@ -133,7 +147,7 @@ pBuscaItem.main = {
                 },
                 items:[
                 {
-                    columnWidth:.10,
+                    columnWidth:.19,
                     items:[
                     this.cmbTipoItem
                     ]
@@ -145,15 +159,9 @@ pBuscaItem.main = {
                     ]
                 },
                 {
-                    columnWidth:.21,
+                    columnWidth:.19,
                     items:[
                     this.codigoBarrasPro
-                    ]
-                },
-                {
-                    columnWidth:.15,
-                    items:[
-                    this.referencia
                     ]
                 },
                 {
@@ -161,7 +169,13 @@ pBuscaItem.main = {
                     items:[
                     this.descripcionPro
                     ]
-                }
+                },
+                {
+                    columnWidth:.10,
+                    items:[
+                    this.chkExistencia
+                    ]
+                },
                 ]
             }
             ]
@@ -182,7 +196,7 @@ pBuscaItem.main = {
             store:this.storeProductos,
             style:'padding:8px',
             height:320,
-            width:773,
+            width:810,
             loadMask:true,
             frame:true,
             stripeRows: true,
@@ -341,7 +355,7 @@ pBuscaItem.main = {
             action:'hide',
             frame:true,
             closable:false,
-            width:800,
+            width:835,
             items:[
             this.tabPanel
             ],
@@ -371,6 +385,7 @@ pBuscaItem.main = {
         pBuscaItem.main.storeProductos.baseParams.limit = pBuscaItem.main.limitePaginacion;
         pBuscaItem.main.storeProductos.baseParams.start = pBuscaItem.main.iniciar;
         pBuscaItem.main.storeProductos.baseParams.tipo_item = 1;//productos
+        pBuscaItem.main.storeProductos.baseParams.onlyExistencia = 'si';//ubica los productos en existencia al levantar
         pBuscaItem.main.storeProductos.load();
     },
     aplicarFiltroByFormularioProducto: function(){

@@ -22,7 +22,6 @@ if ($login->validarLoginON() != 1) {
     header("Location: ../sesion/");
 }
 
-
 $menu = new Menu();
 $parametrosgenerales = new ParametrosGenerales();
 
@@ -62,7 +61,7 @@ if (isset($_GET["opt_menu"]) && !isset($_GET["opt_seccion"]) && !isset($_GET["op
         }#Opcion pedida del menu principal.
     }
 } else {
-    #if (isset($_GET["opt_menu"]) && isset($_GET["opt_seccion"]) && isset($_GET["opt_subseccion"])) {
+    if (isset($_GET["opt_menu"]) && isset($_GET["opt_seccion"]) && isset($_GET["opt_subseccion"])) {
     // Opcion pedida en donde se especifica que tipo de mantenimiento se desea hacer sobre un submodulo: add, edit, delete
     $instruccion = "
             SELECT
@@ -90,7 +89,7 @@ if (isset($_GET["opt_menu"]) && !isset($_GET["opt_seccion"]) && !isset($_GET["op
         $smarty->assign("subseccion", $archivo);
         $smarty->assign("ruta", "?opt_menu=".$_GET["opt_menu"]."&opt_seccion=".$_GET["opt_seccion"]);
     }//if($archivo!=-1){
-    #}//if(isset($_GET["opt_menu"])==true&&isset($_GET["opt_seccion"])==true&&isset($_GET["opt_subseccion"])==true){ // Opcion pedida en donde se especifica que tipo de mantenimiento se desea hacer sobre un submodulo: add, edit, delete
+    }//if(isset($_GET["opt_menu"])==true&&isset($_GET["opt_seccion"])==true&&isset($_GET["opt_subseccion"])==true){ // Opcion pedida en donde se especifica que tipo de mantenimiento se desea hacer sobre un submodulo: add, edit, delete
 }
 
 $campos = $parametrosgenerales->ObtenerFilasBySqlSelect("SELECT * FROM parametros_generales");
@@ -99,12 +98,16 @@ $smarty->assign("DatosGenerales", $campos);
 $version = $parametrosgenerales->ObtenerFilasBySqlSelect("SELECT max(numero_version) as version FROM version_pyme");
 $smarty->assign("version", $version);
 
+$sql_cotizacion = "SELECT cotizacion FROM cotizaciones_dolar WHERE date(fecha) = '".date('Y-m-d')."' ORDER BY id DESC limit 1";
+$select_cotizacion = $parametrosgenerales->ObtenerFilasBySqlSelect($sql_cotizacion);
+$cotizacion = (isset($select_cotizacion[0]['cotizacion'])) ? $select_cotizacion[0]['cotizacion'] : '';
 $msgAUsuario2 = Msg::getMessage();
 Msg::setMessage("");
 
 $smarty->assign("idsesion", $login->getIdSessionActual());
 $array_menu = $menu->getMenu($_SESSION["cod_usuario"]);
 $smarty->assign("msgAUsuario", $msgAUsuario2);
+$smarty->assign("cotizacion_diaria", $cotizacion);
 $smarty->assign("DB_HOST", DB_HOST);
 $smarty->assign("DB_SELECTRA_FAC", DB_SELECTRA_FAC);
 $smarty->assign("archivotpl", $archivotpl);

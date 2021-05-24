@@ -88,6 +88,7 @@
         </script>
         {/literal}
         <link type="text/css" rel="stylesheet" href="../../../includes/css/estilos_basicos.css" />
+        <link type="text/css" rel="stylesheet" href="../../../includes/css/nueva_factura.css" />
         {literal}
         <style type="text/css">
         .invisible

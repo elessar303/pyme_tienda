@@ -140,6 +140,7 @@
     </script>
 {/literal}
  <link type="text/css" rel="stylesheet" href="../../../includes/css/estilos_basicos.css" />
+ <link type="text/css" rel="stylesheet" href="../../../includes/css/nueva_factura.css" />
 <form name="formulario" id="formulario" method="POST" action="">
     <input type="hidden" name="Datosproveedor" value="">
     <input type="hidden" name="codigo_empresa" value="{$DatosEmpresa[0].codigo}"/>

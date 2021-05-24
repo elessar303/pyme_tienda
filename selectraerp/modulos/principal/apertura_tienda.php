@@ -110,6 +110,7 @@ $ano=date("y");
 $hora=date("H");
 $min=date("i");
 $seg=date("s");
+$current_timestamp = "{$ano}-{$mes}-{$dia} {$hora}:{$min}:{$seg}";
 
 $nombre_inventario="000".$sucursal.'_'.$dia.$mes.$ano."_v".$version."_inventario.csv";
 $nombre_kardex="000".$sucursal.'_'.$dia.$mes.$ano."_v".$version."_kardex.csv";
@@ -222,14 +223,14 @@ $almacen->ExecuteTrans($sql);
 $sql="select apertura_date from apertura_tienda order by id_apertura desc limit 1";
 $fecha_ultima_sincronizacion=$almacen->ObtenerFilasBySqlSelect($sql);
 //Insertando registro de la apertura
-$sql="INSERT INTO `apertura_tienda`(`apertura`, `apertura_date`, `id_user_apertura`) VALUES (CURRENT_TIMESTAMP,'$hoy', '$cod_usuario')";
+$sql="INSERT INTO `apertura_tienda`(`apertura`, `apertura_date`, `id_user_apertura`) VALUES ('{$current_timestamp}','{$hoy}', '{$cod_usuario}')";
 $almacen->ExecuteTrans($sql);
 
 $sql="INSERT INTO `operaciones`(`fecha` , `libro_venta` , `cierre_cajero`) VALUES ('$hoy', -1, 0)";
 $almacen->ExecuteTrans($sql);
 
 //Actualizando la fecha de apertura para las cajas
-$sql="UPDATE $pos.store SET OPENING_DATE=CURRENT_TIMESTAMP";
+$sql="UPDATE $pos.store SET OPENING_DATE='{$current_timestamp}'";
 
 $almacen->ExecuteTrans($sql);
 
@@ -519,13 +520,15 @@ set itempos=products.ID
 WHERE  item.codigo_barras=products.CODE";
 $almacen->Execute2($sql_corregir_itempos);
 
+$almacen->Execute2("INSERT INTO {$pyme}.cotizaciones_dolar(cotizacion,fecha, id_usuario, detalle_usuario) VALUES ({$_GET['cotizacion']}, '{$current_timestamp}', {$_SESSION['cod_usuario']}, '{$_SESSION['usuario']} - {$_SESSION['nombreyapellido']}')");
+
 if ($loc_aper!=0 && $servidor==0) {
 echo '<script language="javascript" type="text/JavaScript">';
 echo 'alert("Esta realizando la Apertura desde esta PC, descargar el archivo Sincronizacion Data desde este mismo Equipo");';
-echo 'window.location.href="index.php"'; 
+echo 'window.location.href="index.php?opt_menu=54"'; 
 echo '</script>';
 exit();
 }else{
-    header("Location: index.php");
+    header("Location: index.php?opt_menu=54");
 }
 }

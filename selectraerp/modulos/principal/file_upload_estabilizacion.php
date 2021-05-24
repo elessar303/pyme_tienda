@@ -2,12 +2,7 @@
 ini_set("memory_limit","1024M");
 ini_set("upload_max_filesize","2000M");
 set_time_limit(0);
-
-session_start();
-$_SESSION['ROOT_PROYECTO1']="/var/www/pyme";
 ini_set("display_errors", 1);
-include("../../../general.config.inc.php");
-require_once("../../../general.config.inc.php");
 require_once("../../libs/php/adodb5/adodb.inc.php");
 require_once("../../libs/php/configuracion/config.php");
 require_once("../../libs/php/clases/ConexionComun.php");
@@ -57,7 +52,7 @@ $ruta_master=$_SESSION['ROOT_PROYECTO']."/selectraerp/uploads";
 
 $path_local=$ruta_master."/estabilizacion//";
 
-if ($_FILES['archivo_productos']["error"] > 0)
+if ( !empty($_FILES['archivo_productos']) && $_FILES['archivo_productos']["error"] > 0)
       {
       echo" <script type='text/javascript'>
                 alert('Error Al Subir Archivo');

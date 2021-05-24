@@ -2,6 +2,7 @@
 <script type="text/javascript" src="../../libs/js/eventos_formAlmacen.js"></script>
 <script type="text/javascript" src="../../libs/js/buscar_productos_servicio_factura_rapida_entrada.js"></script>
 <link type="text/css" rel="stylesheet" href="../../../includes/css/estilos_basicos.css" />
+<link type="text/css" rel="stylesheet" href="../../../includes/css/nueva_factura.css" />
 {literal}
 <script >
     $(document).ready(function(){

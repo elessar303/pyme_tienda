@@ -25,9 +25,15 @@
              
             <script>
                  $(document).ready(function(){
-                    $("#sincro").click(function(event) {                       
-                         
-                   window.location=window.confirm("Aperturar Tienda")?"../principal/apertura_tienda.php?generar=si&bandera=1":"?opt_menu=106";
+                    $("#sincro").click(function(event) {
+
+                        if($("#cotizacion").val() ==''){
+                            alert('¡Debe indicar la cotizacion del dia!');
+                            $("#cotizacion").focus();
+                            return false;
+                        }
+                        
+                        window.location=window.confirm("Se aperturará con la siguiente cotizacion:"+$("#cotizacion").val()+" ¿Desea Continuar?")?"../principal/apertura_tienda.php?generar=si&bandera=1&cotizacion="+$("#cotizacion").val():"?opt_menu=106"; 
                      
                     });
                   
@@ -54,8 +60,12 @@
                         <div>Para desbloquear el sistema, debe <u>Aperturar Tienda</u> en el Siguiente LINK:
                         </div>  
                    </h2> 
-                    <div id="sincro" style="margin-top:10px;cursor:pointer">
-                       <h3 style="color: green">Apertura de Tienda</h3>
+                    <div style="margin-top:10px;cursor:pointer">
+                       <label for="cotizacion">
+                        <b>Cotización del Día</b>  
+                        <input type="text" name="cotizacion" id="cotizacion" placeholder="Cotización del Día" class="form-text" />
+                       </label>
+                       <h3 id="sincro" style="color:green;cursor:pointer">Apertura de Tienda</h3>
                     </div> 
                {else}
                   <h2>
