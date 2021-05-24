@@ -74,7 +74,7 @@ class ConexionComun {
     /**
      * Función para realizar consultas sql a la base de datos.
      * @param string $sql Consulta SQL que se desea veriticar. 
-     * @return string
+     * @return array
      */
     function ObtenerFilasBySqlSelect($sql) {
 

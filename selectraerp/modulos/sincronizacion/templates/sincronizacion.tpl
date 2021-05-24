@@ -27,8 +27,8 @@
                  $(document).ready(function(){
                     $("#sincro").click(function(event) {
 
-                        if($("#cotizacion").val() ==''){
-                            alert('¡Debe indicar la cotizacion del dia!');
+                        if($("#cotizacion").val() == '' || $("#cotizacion").val() == '0' || $("#cotizacion").val() == 0){
+                            alert('¡Debe indicar la cotizacion del dia! (Debe ser mayor a 0)');
                             $("#cotizacion").focus();
                             return false;
                         }
@@ -62,8 +62,10 @@
                    </h2> 
                     <div style="margin-top:10px;cursor:pointer">
                        <label for="cotizacion">
-                        <b>Cotización del Día</b>  
+                        <b>Cotización del Día</b> <br />
+                        <b>1$ Dólar = </b> 
                         <input type="text" name="cotizacion" id="cotizacion" placeholder="Cotización del Día" class="form-text" />
+                        <b>Bs.</b> 
                        </label>
                        <h3 id="sincro" style="color:green;cursor:pointer">Apertura de Tienda</h3>
                     </div> 

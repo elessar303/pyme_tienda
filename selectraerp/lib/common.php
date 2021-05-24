@@ -583,7 +583,7 @@ function btn_img($tipo,$url){
 
 function btn($tipo,$url,$accion=0){ // Accion 0=location / 1=Form url = form name / 2 JS ** 3 reset **terminar**
 
-switch ($tipo) {;
+switch ($tipo) {
 
  case "add":
 
@@ -739,7 +739,7 @@ case "add1":
 
  }
 
-switch ($accion) {;
+switch ($accion) {
 
  case 0:
 

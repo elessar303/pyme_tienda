@@ -514,6 +514,7 @@ foreach ($array_venta as $key => $value) {
 $instruccion2="UPDATE ticket_control_pyme SET ticket_id=".$ultimo_ticket_pyme."";
 $almacen->Execute2($instruccion2);
 
+// Sql para correccion automatica de itempos en pyme 
 $sql_corregir_itempos="update item 
 inner join $pos.products on item.codigo_barras=products.CODE
 set itempos=products.ID
@@ -521,6 +522,25 @@ WHERE  item.codigo_barras=products.CODE";
 $almacen->Execute2($sql_corregir_itempos);
 
 $almacen->Execute2("INSERT INTO {$pyme}.cotizaciones_dolar(cotizacion,fecha, id_usuario, detalle_usuario) VALUES ({$_GET['cotizacion']}, '{$current_timestamp}', {$_SESSION['cod_usuario']}, '{$_SESSION['usuario']} - {$_SESSION['nombreyapellido']}')");
+$id_last_cotizacion = $almacen->getInsertID();
+
+$sql_inventario_cotizacion = "SELECT i.id_item, i.codigo_barras, i.precio1 as precio FROM item i
+                    LEFT JOIN item_existencia_almacen iea ON iea.id_item=i.id_item
+                    LEFT JOIN vw_item_pisoventa ipv ON ipv.id_item=i.id_item
+                    WHERE iea.cantidad > 0
+                    OR ipv.cantidad > 0
+                    GROUP BY i.codigo_barras";
+$array_inventario_cotizacion = $almacen->ObtenerFilasBySqlSelect($sql_inventario_cotizacion);
+foreach ($array_inventario_cotizacion as $key => $value) {
+    $cotizacion_item = $value['precio']/$_GET['cotizacion'];
+
+    $almacen->Execute2("INSERT INTO {$pyme}.cotizaciones_dolar_item
+                        (id_cotizacion_dolar, id_item, precio_item, valor_cotizacion, valor_dolar, codigo_barras) 
+                        VALUES 
+                        ({$id_last_cotizacion}, '{$value['id_item']}', {$value['precio']}, {$_GET['cotizacion']}, {$cotizacion_item}, '{$value['codigo_barras']}')");
+    $sucursal=$value['codigo_siga']; 
+    $servidor=$value['servidor']; 
+}
 
 if ($loc_aper!=0 && $servidor==0) {
 echo '<script language="javascript" type="text/JavaScript">';
