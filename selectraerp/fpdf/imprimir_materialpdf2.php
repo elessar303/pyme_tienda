@@ -8,20 +8,28 @@ ob_clean();
 require('fpdfselectra.php');
 ob_end_clean();    header("Content-Encoding: None", true);
 class PDF extends FPDFSelectra {
+    public $varArrayAnchotHead=array(15,25, 80,15, 25,20,15, 25,25,25);
     function tHead($dpto, $moneda) {
         $this->SetFont("Arial", "B", 9);
         $this->Cell(0, 7, "RUBRO: " . strtoupper($dpto), 0, 0, 'L');
         $this->Ln();
-        $this->Cell(15, 7, utf8_decode('N'), 'LTB', 0, 'C');
-        $this->Cell(25, 7, utf8_decode('Codigo Barra'), 'LTB', 0, 'C');
-        $this->Cell(100, 7, utf8_decode('Descripcion'), 'LTB', 0, 'C');
-        $this->Cell(15, 7, 'Exist.', 'LTB', 0, 'C');
-        $this->Cell(20, 7, "Precio S/Iva", 'LTBR', 0, 'C');
-        $this->Cell(15, 7, "IVA (%)", 'LTBR', 0, 'C');
-        $this->Cell(20, 7, "Precio C/Iva", 'LTBR', 0, 'C');
-        $this->Cell(25, 7, "Subtotal", 'LTBR', 0, 'C');
-        $this->Cell(25, 7, "Total", 'LTBR', 0, 'C');
-        $this->Ln();
+        $this->SetWidths($this->varArrayAnchotHead);
+        $this->Setceldas(array(1,1, 1, 1, 1, 1,1,1,1,1));
+        $this->Setancho(array(5,5, 5, 5, 5, 5, 5, 5,5,5));
+        $this->SetAligns(array('C','C', 'C', 'C', 'C', 'C','C', 'C','C', 'C'));
+        $this->Row(
+            array(
+                utf8_decode('N'),
+                utf8_decode('Codigo Barra'),
+                utf8_decode('Descripcion'), 
+                'Exist.', 
+                "Precio S/Iva", 
+                "Precio \$US", 
+                "IVA (%)", 
+                "Precio C/Iva", 
+                "Subtotal",
+                "Total")
+            ,1);
     }
 
     function tHead2($dpto, $moneda) {
@@ -44,17 +52,28 @@ class PDF extends FPDFSelectra {
             // $this->Ln(60);
         }*/
 
+       
+
         $conexion = conexion();
         $rs = query("SELECT moneda FROM parametros_generales;", $conexion);
         $fila = fetch_array($rs);
+
+        $rs = query("SELECT * FROM cotizaciones_dolar ORDER BY id desc LIMIT 1;", $conexion);
+        $filaCotizacion = fetch_array($rs);
         $this->Ln();
         $this->tHead($dpto["descripcion"], $fila["moneda"]);
 
         //$rs = query("SELECT * FROM item i, item_existencia_almacen a WHERE i.id_item = a.id_item AND cod_item_forma = 1 AND a.cantidad>0;",$conexion);
         // $rs = query("SELECT * FROM item i, item_existencia_almacen a WHERE i.id_item = a.id_item AND cod_item_forma = 1 AND a.cantidad>0 AND i.cod_departamento = '" . $dpto["cod_departamento"] . "' ORDER BY descripcion1;", $conexion);
-       $rs = query("select v.*,i.precio1,  i.codigo_barras, i.iva FROM vw_existenciabyalmacen v, item i where i.id_item=v.id_item AND v.cantidad>0 AND i.cod_departamento = '" . $dpto["cod_departamento"] . "' AND ubicacion!='PISO DE VENTA' 
-            GROUP BY i.codigo_barras, ubicacion
-            ORDER BY descripcion,ubicacion, v.cod_almacen
+       $rs = query("SELECT v.*,i.precio1,  i.codigo_barras, i.iva, cot.valor_dolar, cot.valor_dolar*{$filaCotizacion['cotizacion']} as nuevo_valor
+                    FROM vw_existenciabyalmacen v, item i 
+                    LEFT JOIN cotizaciones_dolar_item cot ON i.id_item=cot.id_item
+                    WHERE i.id_item=v.id_item 
+                    AND v.cantidad>0 
+                    AND i.cod_departamento = '{$dpto["cod_departamento"]}' 
+                    AND ubicacion!='PISO DE VENTA' 
+                    GROUP BY i.codigo_barras, ubicacion
+                    ORDER BY i.descripcion1,v.ubicacion, v.cod_almacen
         ", $conexion); 
 
         $totalwhile = num_rows($rs);
@@ -88,12 +107,14 @@ class PDF extends FPDFSelectra {
                  $ubi=$row_rs['ubicacion'];  
            }
             $preciosiva=$row_rs['precio1'];
+            $precioDolar=$row_rs['valor_dolar'];
             $preciociva=$row_rs['precio1']+$row_rs['precio1']*($row_rs['iva']/100);
             $var_codigo = $row_rs['codigo_barras'];
             $var_descrip = utf8_decode($row_rs['descripcion1']);
             $var_exi = number_format($row_rs['cantidad'], 2, ',', '.');
             $var_preciosiva = number_format($preciosiva, 2, ',', '.');
             $var_preciociva = number_format($preciociva, 2, ',', '.');
+            $var_precioDolar = number_format($precioDolar, 2, ',', '.');
             $precio_sub = $row_rs['cantidad'] * $preciosiva;
             $precio_total = $row_rs['cantidad'] * $preciociva;
             $var_precio_sub = number_format($precio_sub, 2, ',', '.');
@@ -104,11 +125,11 @@ class PDF extends FPDFSelectra {
 
             $this->SetFont("Arial", "I", 9);
             // llamado para hacer multilinea sin que haga salto de linea
-            $this->SetWidths(array(15,25, 100,15, 20, 15, 20,25,25));
-            $this->SetAligns(array('C','C', 'L', 'R', 'R', 'R','R', 'R','R'));
-            $this->Setceldas(array(0,0, 0, 0, 0, 0));
-            $this->Setancho(array(5,5, 5, 5, 5, 5, 5, 5,5));
-            $this->Row(array($contador,$var_codigo, $var_descrip, $var_exi, $var_preciosiva, $iva."%", $var_preciociva, $var_precio_sub,$var_precio_total),0);
+            $this->SetWidths($this->varArrayAnchotHead);
+            $this->SetAligns(array('C','C', 'L', 'R', 'R', 'R','R', 'R','R', 'R'));
+            $this->Setceldas(array(0,0, 0, 0, 0, 0,0,0,0,0));
+            $this->Setancho(array(5,5, 5, 5, 5, 5, 5, 5,5,5));
+            $this->Row(array($contador,$var_codigo, $var_descrip, $var_exi, $var_preciosiva,  $var_precioDolar, $iva."%", $var_preciociva,$var_precio_sub,$var_precio_total),0);
 
             if ($cont == $cantidad_registros) {
                 // $this->Ln(80);
@@ -122,7 +143,7 @@ class PDF extends FPDFSelectra {
         $this->SetFont("Arial", "B", 9);
         //$this->Ln();
         //$this->Cell(60, 7, "TOTAL DEPARTAMENTO: " . number_format($subtotal_dpto, 2, ',', '.'), 0, 0, 'R');
-        $this->SetWidths(array(178));
+        $this->SetWidths(array(245));
         $this->SetAligns(array('R'));
         $this->Setceldas(array(0));
         $this->Setancho(array(5));
@@ -199,7 +220,7 @@ class PDF extends FPDFSelectra {
 
             $this->SetFont("Arial", "I", 9);
             // llamado para hacer multilinea sin que haga salto de linea
-            $this->SetWidths(array(15,25, 100, 15, 15, 15, 25, 25));
+            $this->SetWidths($this->varArrayAnchotHead);
             $this->SetAligns(array('C','C', 'L', 'R', 'R', 'R'));
             $this->Setceldas(array(0,0, 0, 0, 0, 0));
             $this->Setancho(array(5,5, 5, 5, 5, 5, 5, 5));

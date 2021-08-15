@@ -529,6 +529,7 @@ $sql_inventario_cotizacion = "SELECT i.id_item, i.codigo_barras, i.precio1 as pr
                     LEFT JOIN vw_item_pisoventa ipv ON ipv.id_item=i.id_item
                     WHERE iea.cantidad > 0
                     OR ipv.cantidad > 0
+                    and i.id_item NOT IN (SELECT id_item FROM cotizaciones_dolar_item)
                     GROUP BY i.codigo_barras";
 $array_inventario_cotizacion = $almacen->ObtenerFilasBySqlSelect($sql_inventario_cotizacion);
 foreach ($array_inventario_cotizacion as $key => $value) {
@@ -541,6 +542,12 @@ foreach ($array_inventario_cotizacion as $key => $value) {
     $sucursal=$value['codigo_siga']; 
     $servidor=$value['servidor']; 
 }
+
+// SQL para actualizar los precios segun el costo en dolar del producto y la cotizacion
+$sql_update_precio1= "  UPDATE item AS i
+                        INNER JOIN cotizaciones_dolar_item AS cot ON i.id_item=cot.id_item
+                        SET i.precio1=({$_GET['cotizacion']}*cot.valor_dolar)";
+ $almacen->Execute2($sql_update_precio1);
 
 if ($loc_aper!=0 && $servidor==0) {
 echo '<script language="javascript" type="text/JavaScript">';
