@@ -544,10 +544,17 @@ foreach ($array_inventario_cotizacion as $key => $value) {
 }
 
 // SQL para actualizar los precios segun el costo en dolar del producto y la cotizacion
-$sql_update_precio1= "  UPDATE item AS i
-                        INNER JOIN cotizaciones_dolar_item AS cot ON i.id_item=cot.id_item
-                        SET i.precio1=({$_GET['cotizacion']}*cot.valor_dolar)";
- $almacen->Execute2($sql_update_precio1);
+$sql_update_pyme_precio = " UPDATE item AS i
+                            INNER JOIN cotizaciones_dolar_item AS cot ON i.id_item=cot.id_item
+                            SET i.precio1=({$_GET['cotizacion']}*cot.valor_dolar)";
+$almacen->Execute2($sql_update_pyme_precio);
+
+$sql_update_pos_precio = "  UPDATE {$pos}.products as i
+                            INNER JOIN {$pyme}.item AS it ON i.ID=it.itempos
+                            INNER JOIN {$pyme}.cotizaciones_dolar_item AS cot ON it.id_item=cot.id_item
+                            SET i.PRICESELL=({$_GET['cotizacion']}*cot.valor_dolar)";
+
+$almacen->Execute2($sql_update_pos_precio);
 
 if ($loc_aper!=0 && $servidor==0) {
 echo '<script language="javascript" type="text/JavaScript">';
